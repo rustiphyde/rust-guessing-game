@@ -26,7 +26,6 @@ fn main(){
     /* shows the random number that was generated for 
     testing purposes, this gets commented out before
     final version is released*/
-    println!("The secret number is: {}", secret_number);
 
     // start of the loop
     loop {
@@ -55,10 +54,11 @@ fn main(){
         guess value minus whitespace from pressing enter
         and parsed into an unsigned 32 bit integer type 
         annotated after the :*/
-        /*If a number is not provided the expect method
-        of the parse Result fires off*/
-        let guess: u32 = guess.trim().parse()
-            .expect("Please type a number!");
+        let guess: u32 = match guess.trim().parse(){
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+            
 
         /*{} is a placeholder that represents the 
         values in order after the format string, so here
@@ -76,8 +76,8 @@ fn main(){
         possible when comparing two values - Less, Greater
         and Equal*/
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small! The number was {}", secret_number),
-            Ordering::Greater => println!("Too big!The number was {}", secret_number),
+            Ordering::Less => println!("Too small! Try again."),
+            Ordering::Greater => println!("Too big! Try again."),
             Ordering::Equal => {
             println!("You guessed the secret number! Congratulations, you win!");
             break;
