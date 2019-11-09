@@ -28,56 +28,62 @@ fn main(){
     final version is released*/
     println!("The secret number is: {}", secret_number);
 
+    // start of the loop
+    loop {
     // requests user input
-    println!("Please input your guess.");
+        println!("Please input your guess.");
 
-    /*creates a mutable variable called guess bound to 
-    a new empty instance of the growable String type.
-    :: indicates that new is an associated function of 
-    the String type*/
-    let mut guess = String::new();
+        /*creates a mutable variable called guess bound to 
+        a new empty instance of the growable String type.
+        :: indicates that new is an associated function of 
+        the String type*/
+        let mut guess = String::new();
 
-    /*calls the stdin associated function from the 
-    io module and chains the read_line method to it to 
-    get input from the user 
-    & indicates that the argument is a reference to the 
-    guess variable, mut makes it mutable
-     */
-    io::stdin().read_line(&mut guess)
-    /*expect handles the Err variant of  the 
-    io::Result enum of read_line*/
-        .expect("Failed to read line");
+        /*calls the stdin associated function from the 
+        io module and chains the read_line method to it to 
+        get input from the user 
+        & indicates that the argument is a reference to the 
+        guess variable, mut makes it mutable
+        */
+        io::stdin().read_line(&mut guess)
+        /*expect handles the Err variant of  the 
+        io::Result enum of read_line*/
+            .expect("Failed to read line");
 
-    /*shadows the previous value of guess with a new one
-    bound to the expression which takes the original
-    guess value minus whitespace from pressing enter
-     and parsed into an unsigned 32 bit integer type 
-     annotated after the :*/
-     /*If a number is not provided the expect method
-     of the parse Result fires off*/
-    let guess: u32 = guess.trim().parse()
-        .expect("Please type a number!");
+        /*shadows the previous value of guess with a new one
+        bound to the expression which takes the original
+        guess value minus whitespace from pressing enter
+        and parsed into an unsigned 32 bit integer type 
+        annotated after the :*/
+        /*If a number is not provided the expect method
+        of the parse Result fires off*/
+        let guess: u32 = guess.trim().parse()
+            .expect("Please type a number!");
 
-    /*{} is a placeholder that represents the 
-    values in order after the format string, so here
-    {} will be replaced with the value of 'guess'
-    that comes from the user input */
-    println!("You guessed: {}", guess);
+        /*{} is a placeholder that represents the 
+        values in order after the format string, so here
+        {} will be replaced with the value of 'guess'
+        that comes from the user input */
+        println!("You guessed: {}", guess);
 
-    /*match expression is made up of arms. An arm 
-    consists of a pattern and the code that should be 
-    run if the value given to the beginning of the 
-    match expression fits that arm’s pattern.*/
-    /*cmp compares two values - the start value (guess)
-    and the reference value argument(&secret_number)*/
-    /*The Ordering enum has the 3 variants that are
-    possible when comparing two values - Less, Greater
-    and Equal*/
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small! The number was {}", secret_number),
-        Ordering::Greater => println!("Too big!The number was {}", secret_number),
-        Ordering::Equal => println!("You guessed the secret number! Congratulations, you win!"),
+        /*match expression is made up of arms. An arm 
+        consists of a pattern and the code that should be 
+        run if the value given to the beginning of the 
+        match expression fits that arm’s pattern.*/
+        /*cmp compares two values - the start value (guess)
+        and the reference value argument(&secret_number)*/
+        /*The Ordering enum has the 3 variants that are
+        possible when comparing two values - Less, Greater
+        and Equal*/
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small! The number was {}", secret_number),
+            Ordering::Greater => println!("Too big!The number was {}", secret_number),
+            Ordering::Equal => {
+            println!("You guessed the secret number! Congratulations, you win!");
+            break;
+            }
+        }
+    // end of the loop    
     }
 }
-
 
