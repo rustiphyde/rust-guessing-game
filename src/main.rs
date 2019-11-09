@@ -1,6 +1,9 @@
 /*brings in the input/output library into scope 
 from the standard library*/
 use std::io;
+/*brings in the random number generator trait 
+from the rand crate*/
+use rand::Rng;
 
 //main function entry point into a rust program
 fn main(){
@@ -9,6 +12,20 @@ fn main(){
     the screen*/
     println!("Guess the number!");
 
+    /* stores a random generated number between 1 
+    and 100 into the variable secret_number using the 
+    thread_rng method from the rand crate chained to the 
+    gen_range method from the same crate
+    To get a better understanding of the use of rand
+    run cargo doc --open in the terminal*/
+    let secret_number = rand::thread_rng().gen_range(1, 101);
+
+    /* shows the random number that was generated for 
+    testing purposes, this gets commented out before
+    final version is released*/
+    println!("The secret number is: {}", secret_number);
+
+    // requests user input
     println!("Please input your guess.");
 
     /*creates a mutable variable called guess bound to 
@@ -35,3 +52,5 @@ fn main(){
      */
     println!("You guessed: {}", guess);
 }
+
+
